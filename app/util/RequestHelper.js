@@ -10,6 +10,7 @@ export function generateDefaultRequestHeaders(accessToken: string) {
 const baseUrl = 'https://heyheyhey';
 
 export const SmartBedUrler = {
+  toggleLight: `${baseUrl}/toggleLight`,
   sendControl: `${baseUrl}/something`,
   getStat: `${baseUrl}/esomethingElse`
 };

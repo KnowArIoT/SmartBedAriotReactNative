@@ -8,4 +8,5 @@ declare module 'redux-logger' { declare var exports: any; }
 declare module 'react-redux' { declare var exports: any; }
 declare module 'redux' { declare var exports: any; }
 declare module 'apsl-react-native-button' { declare var exports: any; }
+declare module 'react-native-vector-icons/FontAwesome' { declare var exports: any; }
 declare module 'react-native-loading-view' { declare var exports: any; }
