@@ -4,18 +4,49 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "flow": "flow",
+    "lint": "eslint --fix '{app,__{tests,mocks}__}/**/*.js'",
+    "prettify": "prettier --single-quote es6 --write '{app,__{tests,mocks}__}/**/*.js'",
+    "build:ios": "react-native bundle --entry-file='index.js' --bundle-output='./ios/SmartBedAriotReactNative/main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'"
   },
   "dependencies": {
     "react": "16.2.0",
-    "react-native": "0.53.0"
+    "react-native": "0.53.0",
+    "apsl-react-native-button": "^3.1.0",
+    "react-native-code-push": "^5.2.2",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.2.0",
+    "i18next": "^10.0.3",
+    "react-i18next": "^6.0.6",
+    "react-navigation": "^1.0.0-beta.21",
+    "react-native-permissions": "^1.0.6",
+    "react-native-vector-icons": "^4.5.0",
+    "react-native-loading-view": "^1.0.0",
+    "lint": "^1.1.2"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.0.1",
     "babel-jest": "22.2.2",
+    "babel-preset-flow": "^6.23.0",
     "babel-preset-react-native": "4.0.0",
+    "eslint": "^4.18.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.6.0",
+    "eslint-plugin-flowtype": "^2.39.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-prettier": "^2.3.1",
+    "eslint-plugin-react": "^7.4.0",
+    "flow-bin": "^0.56.0",
+    "flow-remove-types": "^1.2.3",
     "jest": "22.3.0",
     "prettier": "^1.7.4",
-    "react-test-renderer": "^16.3.0-alpha.1"
+    "react-test-renderer": "16.2.0"
   },
   "jest": {
     "preset": "react-native"

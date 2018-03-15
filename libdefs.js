@@ -1,0 +1,11 @@
+declare module 'react-native' { declare var exports: any; }
+declare module 'jest' { declare var exports: any; }
+declare module 'react-navigation' { declare var exports: any; }
+declare module 'react-i18next' { declare var exports: any; }
+declare module 'react-native-permissions' { declare var exports: any; }
+declare module 'redux-devtools-extension' { declare var exports: any; }
+declare module 'redux-logger' { declare var exports: any; }
+declare module 'react-redux' { declare var exports: any; }
+declare module 'redux' { declare var exports: any; }
+declare module 'apsl-react-native-button' { declare var exports: any; }
+declare module 'react-native-loading-view' { declare var exports: any; }
