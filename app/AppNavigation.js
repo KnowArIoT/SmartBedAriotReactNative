@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { StackNavigator, TabNavigator } from 'react-navigation';
-import Icon from 'react-native-vector-icons/FontAwesome';
+//import Icon from 'react-native-vector-icons/FontAwesome';
 import FirstPage from './pages/FirstPage';
 import DashboardPage from './pages/DashboardPage';
 import BedControlPage from './pages/BedControlPage';
@@ -42,7 +42,7 @@ const DashboardTab = StackNavigator({
     })
   }
 });
-
+/*
 function bedControlIcon({ tintColor }) {
   return (
     <Icon name="cogs" size={24} style={[styles.icon, { color: tintColor }]} />
@@ -57,21 +57,21 @@ function dashboardIcon({ tintColor }) {
       style={[styles.icon, { color: tintColor }]}
     />
   );
-}
+}*/
 
 const TabStack = TabNavigator(
   {
     BedControl: {
       screen: BedControlTab,
       navigationOptions: {
-        tabBarIcon: bedControlIcon,
+        /*tabBarIcon: bedControlIcon,*/
         tabBarLabel: 'Bed control'
       }
     },
     Dash: {
       screen: DashboardTab,
       navigationOptions: {
-        tabBarIcon: dashboardIcon,
+        /*tabBarIcon: dashboardIcon,*/
         tabBarLabel: 'Dashboard'
       }
     }
@@ -81,7 +81,7 @@ const TabStack = TabNavigator(
     animationEnabled: false,
     swipeEnabled: false,
     tabBarOptions: {
-      showIcon: 'true',
+      /*showIcon: 'true',*/
       activeTintColor: 'white',
       inactiveTintColor: '#a3a3a3',
       style: styles.tabBar

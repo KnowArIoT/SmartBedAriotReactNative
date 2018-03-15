@@ -11,6 +11,7 @@ const baseUrl = 'https://heyheyhey';
 
 export const SmartBedUrler = {
   toggleLight: `${baseUrl}/toggleLight`,
+  headUp: `${baseUrl}/headup`,
   sendControl: `${baseUrl}/something`,
   getStat: `${baseUrl}/esomethingElse`
 };
