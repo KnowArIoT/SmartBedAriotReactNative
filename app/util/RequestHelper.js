@@ -7,10 +7,13 @@ export function generateDefaultRequestHeaders(accessToken: string) {
   return { headers: { Authorization: `Bearer ${accessToken}` } };
 }
 
-const baseUrl = 'https://heyheyhey';
+// const baseUrl = 'http://35.187.83.210';
+const baseUrl = 'http://ariot.knowit.no/';
 
 export const SmartBedUrler = {
-  toggleLight: `${baseUrl}/toggleLight`,
+  toggleLightOn: `${baseUrl}/toggleLightOn`,
+  toggleLightOff: `${baseUrl}/toggleLightOff`,
+  dimLight: `${baseUrl}/dimLight/`,
   headUp: `${baseUrl}/headup`,
   sendControl: `${baseUrl}/something`,
   getStat: `${baseUrl}/esomethingElse`

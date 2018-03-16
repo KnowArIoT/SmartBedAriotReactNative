@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View, Text, Alert, AsyncStorage, StyleSheet } from 'react-native';
+import { View, Text, Slider, Alert, AsyncStorage, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 import Button from 'apsl-react-native-button';
@@ -21,14 +21,46 @@ type Props = {
   dispatchStopLoading: () => void
 };
 
-class BedControlPage extends Component<Props> {
-  componentDidMount() {
+type State = {
+  dimValue: number
+}
+
+class BedControlPage extends Component<Props, State> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dimValue: 50,
+    };
+  }
+
+  changeDimValue(value) {
+    this.setState(() => {
+      return {
+        dimValue: parseFloat(value),
+      };
+    });
+  }
+
+  slidingComplete(value) {
+    this.lightControl(null, value);
   }
 
   fetchData() {}
 
-  toggleLight() {
-    fetch(SmartBedUrler.toggleLight)
+  lightControl(on, dimValue) {
+    var requestUrl = "";
+    if (on !== null) {
+      if (on) {
+        requestUrl = SmartBedUrler.toggleLightOn;
+      }
+      else {
+        requestUrl = SmartBedUrler.toggleLightOff;
+      }
+    }
+    else {
+      requestUrl = SmartBedUrler.dimLight + String(dimValue)
+    }
+    fetch(requestUrl)
       .then((response) => {
         if (response.ok) {
           return response.json()
@@ -141,16 +173,45 @@ class BedControlPage extends Component<Props> {
           {/* <Button style={{backgroundColor: 'red'}} textStyle={{fontSize: 18}}>
             Hello!
           </Button> */}
-          <Button
-            style={{flex: 1, backgroundColor: 'red'}}
+          <View style={{flexDirection: 'row'}}>
+            <Button
+            style={{flex: 1, backgroundColor: 'red', marginHorizontal: 3}}
             textStyle={{ fontSize: 18 }}
             isDisabled={this.props.loading}
             onPress={() => {
-              this.toggleLight();
+              this.lightControl(true, null);
             }}
           >
-            {this.props.t('bedControl:toggleLight')}
-          </Button>
+
+            {this.props.t('bedControl:lightOn')}
+          </Button><Button
+              style={{flex: 1, backgroundColor: 'red', marginHorizontal: 3}}
+              textStyle={{ fontSize: 18 }}
+              isDisabled={this.props.loading}
+              onPress={() => {
+                this.lightControl(false, null);
+              }}
+            >
+              <Icon
+                name="registered"
+                size={26}
+                style={[styles.icon, { color: '#000000' }]}
+              />
+              {this.props.t('bedControl:lightOff')}
+            </Button>
+          </View>
+
+          <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', width: '100%'}}>
+            <Text style={{fontSize: 20, textAlign: 'center'}}>
+              {"Dim light: " + String(this.state.dimValue)}</Text>
+            <Slider
+              step={1}
+              maximumValue={100}
+              onValueChange={this.changeDimValue.bind(this)}
+              onSlidingComplete={this.slidingComplete.bind(this)}
+              value={this.state.dimValue}
+            />
+          </View>
         </View>
       </LoadingView>
     );
