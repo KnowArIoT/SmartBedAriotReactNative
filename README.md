@@ -14,10 +14,10 @@ IOS
 
 
 ANDROID
-- react-native run-android
-- Dersom den sier no device found må man enten plugge i sitt eget android device eller starte en Android emulator fra android studio. Man kan kjøre "adb devices" for å se om man har noen tilgjengelige.
+- ```react-native run-android```
+- Dersom den sier no device found må man enten plugge i sitt eget android device eller starte en Android emulator fra android studio. Man kan kjøre ```adb devices``` for å se om man har noen tilgjengelige.
 - Dersom du får feil med build tools må du installere android studio >= 3.1
 - For å lage en release APK til android:
-1. cd android && ./gradlew assembleRelease
-2. react-native run-android --variant=release
+1. ```cd android && ./gradlew assembleRelease```
+2. ```react-native run-android --variant=release```
 3. Filen legges i android/app/build/outputs/apk/app-release.apk
