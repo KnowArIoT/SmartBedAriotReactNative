@@ -11,22 +11,23 @@
     "build:ios": "react-native bundle --entry-file='index.js' --bundle-output='./ios/SmartBedAriotReactNative/main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'"
   },
   "dependencies": {
-    "react": "16.2.0",
-    "react-native": "0.53.0",
     "apsl-react-native-button": "^3.1.0",
+    "i18next": "^10.0.3",
+    "lint": "^1.1.2",
+    "react": "16.2.0",
+    "react-i18next": "^6.0.6",
+    "react-native": "0.53.0",
     "react-native-code-push": "^5.2.2",
+    "react-native-loading-view": "^1.0.0",
+    "react-native-permissions": "^1.0.6",
+    "react-native-simple-time-picker": "^0.2.0",
+    "react-native-vector-icons": "^4.5.0",
+    "react-navigation": "^1.0.0-beta.21",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.2.0",
-    "i18next": "^10.0.3",
-    "react-i18next": "^6.0.6",
-    "react-navigation": "^1.0.0-beta.21",
-    "react-native-permissions": "^1.0.6",
-    "react-native-vector-icons": "^4.5.0",
-    "react-native-loading-view": "^1.0.0",
-    "lint": "^1.1.2"
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

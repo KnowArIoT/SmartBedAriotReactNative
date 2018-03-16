@@ -5,5 +5,7 @@
     "lightOff": "Lys Av",
     "heatOn": "Varmeteppe På",
     "heatOff": "Varmeteppe Av",
+    "setAlarm": "Set alarm",
+    "disableAlarm": "Slå av alarm"
   }
 }
