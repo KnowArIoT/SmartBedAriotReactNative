@@ -1,6 +1,7 @@
 {
   "bedControl": {
     "ettellerannet": "her kan man se hva som skjer",
-    "toggleLight": "Toggle light",
+    "lightOn": "På",
+    "lightOff": "Av",
   }
 }
