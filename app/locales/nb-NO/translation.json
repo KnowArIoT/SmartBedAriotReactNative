@@ -1,7 +1,9 @@
 {
   "bedControl": {
     "ettellerannet": "her kan man se hva som skjer",
-    "lightOn": "På",
-    "lightOff": "Av",
+    "lightOn": "Lys På",
+    "lightOff": "Lys Av",
+    "heatOn": "Varmeteppe På",
+    "heatOff": "Varmeteppe Av",
   }
 }

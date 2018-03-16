@@ -76,6 +76,22 @@ class BedControlPage extends Component<Props, State> {
       });
   }
 
+  heatControl(on) {
+    fetch(on ? SmartBedUrler.toggleHeatOn : SmartBedUrler.toggleHeatOff)
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
+        }
+        throw new Error('Uventet feil');
+      })
+      .then((responseJson) => {
+        console.log(responseJson);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   render() {
     return (
       <LoadingView loading={this.props.loading}>
@@ -83,12 +99,9 @@ class BedControlPage extends Component<Props, State> {
           <View style={{flex: 1}}>
             <Text style={{marginTop: 25, fontSize: 18, fontWeight: 'bold'}}>Smart Bed</Text>
           </View>
-          {/* <Button style={{backgroundColor: 'red'}} textStyle={{fontSize: 18}}>
-            Hello!
-          </Button> */}
           <View style={{flexDirection: 'row'}}>
             <Button
-              style={{flex: 1, backgroundColor: 'red', marginHorizontal: 3}}
+              style={{flex: 1, backgroundColor: 'blue', marginHorizontal: 3}}
               textStyle={{ fontSize: 18 }}
               isDisabled={this.props.loading}
               onPress={() => {
@@ -98,7 +111,7 @@ class BedControlPage extends Component<Props, State> {
               <Icon
                 name="lightbulb-o"
                 size={26}
-                style={[styles.icon, { color: '#000000' }]}
+                style={[styles.icon, { color: '#FFFFFF' }]}
               />
               {this.props.t('bedControl:lightOn')}
             </Button>
@@ -116,6 +129,39 @@ class BedControlPage extends Component<Props, State> {
                 style={[styles.icon, { color: '#000000' }]}
               />
               {this.props.t('bedControl:lightOff')}
+            </Button>
+          </View>
+
+          <View style={{flexDirection: 'row'}}>
+            <Button
+              style={{flex: 1, backgroundColor: 'blue', marginHorizontal: 3}}
+              textStyle={{ fontSize: 18 }}
+              isDisabled={this.props.loading}
+              onPress={() => {
+                this.heatControl(true);
+              }}
+            >
+              <Icon
+                name="thermometer-4"
+                size={26}
+                style={[styles.icon, { color: '#FFFFFF' }]}
+              />
+              {this.props.t('bedControl:heatOn')}
+            </Button>
+            <Button
+              style={{flex: 1, backgroundColor: 'red', marginHorizontal: 3}}
+              textStyle={{ fontSize: 18 }}
+              isDisabled={this.props.loading}
+              onPress={() => {
+                this.heatControl(false);
+              }}
+            >
+              <Icon
+                name="thermometer-empty"
+                size={26}
+                style={[styles.icon, { color: '#000000' }]}
+              />
+              {this.props.t('bedControl:heatOff')}
             </Button>
           </View>
 

@@ -52,7 +52,7 @@ function bedControlIcon({ tintColor }) {
 function dashboardIcon({ tintColor }) {
   return (
     <Icon
-      name="area-chart"
+      name="heartbeat"
       size={24}
       style={[styles.icon, { color: tintColor }]}
     />
