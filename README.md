@@ -7,10 +7,10 @@ og set default Command line tools for å bygge
 
 For å kjøre prosjektet:
 IOS
-- npm install (i SmartBedAriotReactNative/) evt hvis du får feil her:
-- rm -rf node_modules/ && npm i && rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json && rm -rf $TMPDIR/react-* &&  rm -rf $TMPDIR/haste-map-react-native-packager-*
-- cd ios/ $$ pod install
-- react-native run-ios
+- ```npm install``` (i SmartBedAriotReactNative/) evt hvis du får feil her:
+- ```rm -rf node_modules/ && npm i && rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json && rm -rf $TMPDIR/react-* &&  rm -rf $TMPDIR/haste-map-react-native-packager-*```
+- ```cd ios/ $$ pod install```
+- ```react-native run-ios```
 
 
 ANDROID
