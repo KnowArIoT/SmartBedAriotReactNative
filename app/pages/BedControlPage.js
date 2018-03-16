@@ -28,6 +28,7 @@ class BedControlPage extends Component<Props> {
     //   this.props.dispatchStartLoading();
     //   this.fetchData();
     // }
+      
   }
 
   fetchData() {}
