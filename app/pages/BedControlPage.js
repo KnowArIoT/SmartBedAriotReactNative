@@ -23,7 +23,9 @@ type Props = {
 };
 
 type State = {
-  dimValue: number
+  dimValue: number,
+  bedAngleHeadValue: number,
+  bedAngleFeetValue: number
 }
 
 class BedControlPage extends Component<Props, State> {
@@ -31,6 +33,8 @@ class BedControlPage extends Component<Props, State> {
     super(props);
     this.state = {
       dimValue: 50,
+      bedAngleHeadValue: 0,
+      bedAngleFeetValue: 0
     };
   }
 
@@ -42,8 +46,32 @@ class BedControlPage extends Component<Props, State> {
     });
   }
 
-  slidingComplete(value) {
+  slidingLightComplete(value) {
     this.lightControl(null, value);
+  }
+
+  changeBedAngleHeadValue(value) {
+    this.setState(() => {
+      return {
+        bedAngleHeadValue: parseFloat(value),
+      };
+    });
+  }
+
+  changeBedAngleFeetValue(value) {
+    this.setState(() => {
+      return {
+        bedAngleFeetValue: parseFloat(value),
+      };
+    });
+  }
+
+  slidingBedAngleHeadComplete(value) {
+    this.bedAngleHeadControl(value);
+  }
+
+  slidingBedAngleFeetComplete(value) {
+    this.bedAngleFeetControl(value);
   }
 
   fetchData() {}
@@ -62,6 +90,38 @@ class BedControlPage extends Component<Props, State> {
       requestUrl = SmartBedUrler.dimLight + String(dimValue)
     }
     fetch(requestUrl)
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
+        }
+        throw new Error('Uventet feil');
+      })
+      .then((responseJson) => {
+        console.log(responseJson);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  bedAngleHeadControl(value) {
+    fetch(SmartBedUrler.setHeadAngle + String(value))
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
+        }
+        throw new Error('Uventet feil');
+      })
+      .then((responseJson) => {
+        console.log(responseJson);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  bedAngleFeetControl(value) {
+    fetch(SmartBedUrler.setFeetAngle + String(value))
       .then((response) => {
         if (response.ok) {
           return response.json()
@@ -97,8 +157,9 @@ class BedControlPage extends Component<Props, State> {
       <LoadingView loading={this.props.loading}>
         <View style={styles.container}>
           <View style={{flex: 1}}>
-            <Text style={{marginTop: 25, fontSize: 18, fontWeight: 'bold'}}>Smart Bed</Text>
+            <Text style={{marginTop: 35, fontSize: 18, fontWeight: 'bold'}}>Smart Bed</Text>
           </View>
+
           <View style={{flexDirection: 'row'}}>
             <Button
               style={{flex: 1, backgroundColor: 'blue', marginHorizontal: 3}}
@@ -172,10 +233,34 @@ class BedControlPage extends Component<Props, State> {
               step={1}
               maximumValue={100}
               onValueChange={this.changeDimValue.bind(this)}
-              onSlidingComplete={this.slidingComplete.bind(this)}
+              onSlidingComplete={this.slidingLightComplete.bind(this)}
               value={this.state.dimValue}
             />
           </View>
+
+          <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', width: '100%'}}>
+            <Text style={{fontSize: 20, textAlign: 'center'}}>
+              {"Sengevinkel på hodet: " + String(this.state.bedAngleHeadValue)}</Text>
+            <Slider
+              step={1}
+              maximumValue={45}
+              onValueChange={this.changeBedAngleHeadValue.bind(this)}
+              onSlidingComplete={this.slidingBedAngleHeadComplete.bind(this)}
+              value={this.state.bedAngleHeadValue}
+            />
+          </View>
+          <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', width: '100%'}}>
+            <Text style={{fontSize: 20, textAlign: 'center'}}>
+              {"Sengevinkel på bena: " + String(this.state.bedAngleFeetValue)}</Text>
+            <Slider
+              step={1}
+              maximumValue={45}
+              onValueChange={this.changeBedAngleFeetValue.bind(this)}
+              onSlidingComplete={this.slidingBedAngleFeetComplete.bind(this)}
+              value={this.state.bedAngleFeetValue}
+            />
+          </View>
+
         </View>
       </LoadingView>
     );

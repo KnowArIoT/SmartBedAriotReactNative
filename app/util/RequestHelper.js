@@ -16,6 +16,7 @@ export const SmartBedUrler = {
   toggleHeatOn: `${baseUrl}/toggleHeatOn`,
   toggleHeatOff: `${baseUrl}/toggleHeatOff`,
   dimLight: `${baseUrl}/dimLight/`,
-  sendControl: `${baseUrl}/something`,
-  getStat: `${baseUrl}/esomethingElse`
+  setHeadAngle: `${baseUrl}/setHeadAngle/`,
+  setFeetAngle: `${baseUrl}/setFeetAngle/`,
+
 };
