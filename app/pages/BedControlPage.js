@@ -161,6 +161,22 @@ class BedControlPage extends Component<Props, State> {
       });
   }
 
+  alarmControl() {
+    fetch(this.state.alarmSet ? SmartBedUrler.setAlarm + this.state.selectedHours + ":" + this.state.selectedMinutes : SmartBedUrler.setAlarm + "0")
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
+        }
+        throw new Error('Uventet feil');
+      })
+      .then((responseJson) => {
+        console.log(responseJson);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+}
+
   render() {
     if (this.state.alarmButtonPressed) {
       return (
@@ -184,6 +200,7 @@ class BedControlPage extends Component<Props, State> {
                 isDisabled={this.props.loading}
                 onPress={() => {
                   this.setState({alarmButtonPressed: !this.state.alarmButtonPressed, alarmSet: true});
+                  this.alarmControl()
                 }}
               >
                 <Icon
@@ -314,6 +331,7 @@ class BedControlPage extends Component<Props, State> {
                 onPress={() => {
                   if (this.state.alarmSet) {
                     this.setState({alarmSet: false});
+                    this.alarmControl();
                   }
                   else {
                     this.setState({alarmButtonPressed: !this.state.alarmButtonPressed});

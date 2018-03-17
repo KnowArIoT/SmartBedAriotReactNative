@@ -18,5 +18,6 @@ export const SmartBedUrler = {
   dimLight: `${baseUrl}/dimLight/`,
   setHeadAngle: `${baseUrl}/setHeadAngle/`,
   setFeetAngle: `${baseUrl}/setFeetAngle/`,
-
+  getSensorData: `${baseUrl}/api/sensorData/7`,
+  setAlarm: `${baseUrl}/setAlarm/`
 };

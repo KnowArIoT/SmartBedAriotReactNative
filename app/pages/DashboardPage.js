@@ -7,7 +7,8 @@ import { translate } from 'react-i18next';
 import LoadingView from 'react-native-loading-view';
 import { startLoading, stopLoading } from '../../actions';
 import { SHOULD_MOCK } from '../../constants';
-import {} from '../util/RequestHelper';
+import { SmartBedUrler } from '../util/RequestHelper';
+
 
 const styles = require('./../styles');
 
@@ -19,15 +20,39 @@ type Props = {
   dispatchStopLoading: () => void
 };
 
-class DashboardPage extends Component<Props> {
-  componentDidMount() {
-    if (this.props.networkEnabled) {
-      this.props.dispatchStartLoading();
-      this.fetchData();
+type State = {
+  sensorData: Array<Object>
+}
+
+class DashboardPage extends Component<Props, State> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sensorData: []
     }
   }
 
-  fetchData() {}
+  componentDidMount() {
+    this.props.dispatchStartLoading();
+    this.fetchData();
+  }
+
+  fetchData() {
+    fetch(SmartBedUrler.getSensorData)
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
+        }
+        throw new Error('Uventet feil');
+      })
+      .then((responseJson) => {
+        console.log(responseJson);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+      this.props.dispatchStopLoading();
+  }
 
   render() {
     return (
