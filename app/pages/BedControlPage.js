@@ -179,7 +179,7 @@ class BedControlPage extends Component<Props, State> {
 
             <View style={{flex: 1}}>
               <Button
-                style={{flex: 1, backgroundColor: 'blue', marginHorizontal: 8, width: '80%'}}
+                style={{flex: 1, backgroundColor: 'skyblue', marginHorizontal: 8, width: '80%'}}
                 textStyle={{ fontSize: 18 }}
                 isDisabled={this.props.loading}
                 onPress={() => {
@@ -207,7 +207,7 @@ class BedControlPage extends Component<Props, State> {
 
             <View style={{flexDirection: 'row'}}>
               <Button
-                style={{flex: 1, backgroundColor: 'blue', marginHorizontal: 3}}
+                style={{flex: 1, backgroundColor: 'skyblue', marginHorizontal: 3}}
                 textStyle={{ fontSize: 18 }}
                 isDisabled={this.props.loading}
                 onPress={() => {
@@ -222,7 +222,7 @@ class BedControlPage extends Component<Props, State> {
                 {this.props.t('bedControl:lightOn')}
               </Button>
               <Button
-                style={{flex: 1, backgroundColor: 'red', marginHorizontal: 3}}
+                style={{flex: 1, backgroundColor: 'skyblue', marginHorizontal: 3}}
                 textStyle={{ fontSize: 18 }}
                 isDisabled={this.props.loading}
                 onPress={() => {
@@ -240,7 +240,7 @@ class BedControlPage extends Component<Props, State> {
 
             <View style={{flexDirection: 'row'}}>
               <Button
-                style={{flex: 1, backgroundColor: 'blue', marginHorizontal: 3}}
+                style={{flex: 1, backgroundColor: 'skyblue', marginHorizontal: 3}}
                 textStyle={{ fontSize: 18 }}
                 isDisabled={this.props.loading}
                 onPress={() => {
@@ -255,7 +255,7 @@ class BedControlPage extends Component<Props, State> {
                 {this.props.t('bedControl:heatOn')}
               </Button>
               <Button
-                style={{flex: 1, backgroundColor: 'red', marginHorizontal: 3}}
+                style={{flex: 1, backgroundColor: 'skyblue', marginHorizontal: 3}}
                 textStyle={{ fontSize: 18 }}
                 isDisabled={this.props.loading}
                 onPress={() => {
