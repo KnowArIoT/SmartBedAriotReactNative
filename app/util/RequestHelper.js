@@ -13,11 +13,14 @@ const baseUrl = 'http://35.187.83.210';
 export const SmartBedUrler = {
   toggleLightOn: `${baseUrl}/toggleLightOn`,
   toggleLightOff: `${baseUrl}/toggleLightOff`,
+  toggleLedOn: `${baseUrl}/toggleLedOn`,
+  toggleLedOff: `${baseUrl}/toggleLedOff`,
   toggleHeatOn: `${baseUrl}/toggleHeatOn`,
   toggleHeatOff: `${baseUrl}/toggleHeatOff`,
   dimLight: `${baseUrl}/dimLight/`,
-  setHeadAngle: `${baseUrl}/setHeadAngle/`,
-  setFeetAngle: `${baseUrl}/setFeetAngle/`,
-  getSensorData: `${baseUrl}/api/sensorData/7`,
-  setAlarm: `${baseUrl}/setAlarm/`
+  getSensorData: `${baseUrl}/sensorData`,
+  setAlarm: `${baseUrl}/scene/wakeup`,
+  wakeup: `${baseUrl}/scene/wakeup`,
+  sleep: `${baseUrl}/scene/sleep`,
+  bedControl: `${baseUrl}/bed`,
 };

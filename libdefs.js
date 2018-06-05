@@ -11,3 +11,4 @@ declare module 'apsl-react-native-button' { declare var exports: any; }
 declare module 'react-native-vector-icons/FontAwesome' { declare var exports: any; }
 declare module 'react-native-simple-time-picker' { declare var exports: any; }
 declare module 'react-native-loading-view' { declare var exports: any; }
+declare module 'react-native-chart' { declare var exports: any; }

@@ -11,6 +11,9 @@ import TimePicker from 'react-native-simple-time-picker';
 import { startLoading, stopLoading } from '../../actions';
 import { SHOULD_MOCK } from '../../constants';
 import { SmartBedUrler } from '../util/RequestHelper';
+import CustomClickButton from '../components/CustomClickButton';
+import CustomHoldButton from '../components/CustomHoldButton';
+
 
 const styles = require('./../styles');
 
@@ -59,123 +62,78 @@ class BedControlPage extends Component<Props, State> {
     this.lightControl(null, value);
   }
 
-  changeBedAngleHeadValue(value) {
-    this.setState(() => {
-      return {
-        bedAngleHeadValue: parseFloat(value),
-      };
-    });
-  }
-
-  changeBedAngleFeetValue(value) {
-    this.setState(() => {
-      return {
-        bedAngleFeetValue: parseFloat(value),
-      };
-    });
-  }
-
-  slidingBedAngleHeadComplete(value) {
-    this.bedAngleHeadControl(value);
-  }
-
-  slidingBedAngleFeetComplete(value) {
-    this.bedAngleFeetControl(value);
-  }
-
-  fetchData() {}
-
   lightControl(on, dimValue) {
-    var requestUrl = "";
-    if (on !== null) {
-      if (on) {
-        requestUrl = SmartBedUrler.toggleLightOn;
-      }
-      else {
-        requestUrl = SmartBedUrler.toggleLightOff;
-      }
-    }
-    else {
-      requestUrl = SmartBedUrler.dimLight + String(dimValue)
-    }
-    fetch(requestUrl)
-      .then((response) => {
-        if (response.ok) {
-          return response.json()
-        }
-        throw new Error('Uventet feil');
-      })
-      .then((responseJson) => {
-        console.log(responseJson);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    this.fetchData(on == null ? SmartBedUrler.dimLight + String(dimValue) : on ? SmartBedUrler.toggleLightOn : SmartBedUrler.toggleLightOff);
+  }
+
+  ledControl(on) {
+    this.fetchData(on ? SmartBedUrler.toggleLedOn : SmartBedUrler.toggleLedOff);
   }
 
   bedAngleHeadControl(value) {
-    fetch(SmartBedUrler.setHeadAngle + String(value))
-      .then((response) => {
-        if (response.ok) {
-          return response.json()
-        }
-        throw new Error('Uventet feil');
-      })
-      .then((responseJson) => {
-        console.log(responseJson);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    this.fetchData(SmartBedUrler.setHeadAngle + String(value))
   }
 
   bedAngleFeetControl(value) {
-    fetch(SmartBedUrler.setFeetAngle + String(value))
-      .then((response) => {
-        if (response.ok) {
-          return response.json()
-        }
-        throw new Error('Uventet feil');
-      })
-      .then((responseJson) => {
-        console.log(responseJson);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    this.fetchData(SmartBedUrler.setFeetAngle + String(value))
   }
 
   heatControl(on) {
-    fetch(on ? SmartBedUrler.toggleHeatOn : SmartBedUrler.toggleHeatOff)
-      .then((response) => {
-        if (response.ok) {
-          return response.json()
-        }
-        throw new Error('Uventet feil');
-      })
-      .then((responseJson) => {
-        console.log(responseJson);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    this.fetchData(on ? SmartBedUrler.toggleHeatOn : SmartBedUrler.toggleHeatOff)
+  }
+
+  scemeControl(val) {
+    this.fetchData(val == "sleep" ? SmartBedUrler.sleep : SmartBedUrler.wakeup);
   }
 
   alarmControl() {
-    fetch(this.state.alarmSet ? SmartBedUrler.setAlarm + this.state.selectedHours + ":" + this.state.selectedMinutes : SmartBedUrler.setAlarm + "0")
-      .then((response) => {
-        if (response.ok) {
-          return response.json()
-        }
-        throw new Error('Uventet feil');
-      })
-      .then((responseJson) => {
-        console.log(responseJson);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-}
+    this.fetchData(SmartBedUrler.setAlarm);
+  }
+
+  bedControl(startOrStop, headOrFeet, direction) {
+    var bedControlObject = {
+      startOrStop: startOrStop,
+      headOrFeet: headOrFeet,
+      direction: direction
+    }
+    this.postData(SmartBedUrler.bedControl, JSON.stringify(bedControlObject));
+  }
+
+  fetchData(url) {
+      fetch(url)
+        .then((response) => {
+          if (response.ok) {
+            return response.json()
+          }
+          throw new Error('Uventet feil');
+        })
+        .then((responseJson) => {
+          console.log(responseJson);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  }
+
+  postData(url, bedControlObject) {
+    fetch(url, {
+      method: 'POST',
+      body: bedControlObject,
+      headers: {"Content-Type": "application/json"}
+    })
+    .then((response) => {
+      if (response.ok) {
+        return response.json()
+      }
+      throw new Error('Uventet feil');
+    })
+    .then((responseJson) => {
+      console.log(responseJson);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
 
   render() {
     if (this.state.alarmButtonPressed) {
@@ -195,7 +153,7 @@ class BedControlPage extends Component<Props, State> {
 
             <View style={{flex: 1}}>
               <Button
-                style={{flex: 1, backgroundColor: 'blue', marginHorizontal: 8, width: '80%'}}
+                style={{flex: 1, backgroundColor: 'skyblue', marginHorizontal: 8, width: '80%'}}
                 textStyle={{ fontSize: 18 }}
                 isDisabled={this.props.loading}
                 onPress={() => {
@@ -222,85 +180,77 @@ class BedControlPage extends Component<Props, State> {
               <Text style={{marginTop: 35, fontSize: 18, fontWeight: 'bold'}}>Smart Bed</Text>
             </View>
 
-            <View style={{flexDirection: 'row'}}>
-              <Button
-                style={{flex: 1, backgroundColor: 'blue', marginHorizontal: 3}}
-                textStyle={{ fontSize: 18 }}
-                isDisabled={this.props.loading}
-                onPress={() => {
-                  this.lightControl(true, null);
-                }}
-              >
-                <Icon
-                  name="lightbulb-o"
-                  size={26}
-                  style={[styles.icon, { color: '#FFFFFF' }]}
-                />
-                {this.props.t('bedControl:lightOn')}
-              </Button>
-              <Button
-                style={{flex: 1, backgroundColor: 'red', marginHorizontal: 3}}
-                textStyle={{ fontSize: 18 }}
-                isDisabled={this.props.loading}
-                onPress={() => {
-                  this.lightControl(false, null);
-                }}
-              >
-                <Icon
-                  name="lightbulb-o"
-                  size={26}
-                  style={[styles.icon, { color: '#000000' }]}
-                />
-                {this.props.t('bedControl:lightOff')}
-              </Button>
+            <View style={{flex: 1, flexDirection: 'row'}}>
+              <CustomClickButton
+                iconName="lightbulb-o"
+                buttonText={this.props.t('bedControl:lightOn')}
+                onPressButton={() => {this.lightControl(true, null)}}
+                iconColor='#FFFFFF'/>
+              <CustomClickButton
+                iconName="lightbulb-o"
+                buttonText={this.props.t('bedControl:lightOff')}
+                onPressButton={() => {this.lightControl(false, null)}}
+                iconColor='#000000'/>
             </View>
 
-            <View style={{flexDirection: 'row'}}>
-              <Button
-                style={{flex: 1, backgroundColor: 'blue', marginHorizontal: 3}}
-                textStyle={{ fontSize: 18 }}
-                isDisabled={this.props.loading}
-                onPress={() => {
-                  this.heatControl(true);
-                }}
-              >
-                <Icon
-                  name="thermometer-4"
-                  size={26}
-                  style={[styles.icon, { color: '#FFFFFF' }]}
-                />
-                {this.props.t('bedControl:heatOn')}
-              </Button>
-              <Button
-                style={{flex: 1, backgroundColor: 'red', marginHorizontal: 3}}
-                textStyle={{ fontSize: 18 }}
-                isDisabled={this.props.loading}
-                onPress={() => {
-                  this.heatControl(false);
-                }}
-              >
-                <Icon
-                  name="thermometer-empty"
-                  size={26}
-                  style={[styles.icon, { color: '#000000' }]}
-                />
-                {this.props.t('bedControl:heatOff')}
-              </Button>
+            <View style={{flex: 1, flexDirection: 'row'}}>
+              <CustomClickButton
+                iconName="lightbulb-o"
+                buttonText={this.props.t('bedControl:ledOn')}
+                onPressButton={() => {this.ledControl(true)}}
+                iconColor='#FFFFFF'/>
+              <CustomClickButton
+                iconName="lightbulb-o"
+                buttonText={this.props.t('bedControl:ledOff')}
+                onPressButton={() => {this.ledControl(false)}}
+                iconColor='#000000'/>
             </View>
 
-            <View style={{flex: 0.5, flexDirection: 'column', justifyContent: 'center', width: '100%'}}>
-              <Text style={{fontSize: 20, textAlign: 'center'}}>
-                {"Dim light: " + String(this.state.dimValue)}</Text>
-              <Slider
-                step={1}
-                maximumValue={100}
-                onValueChange={this.changeDimValue.bind(this)}
-                onSlidingComplete={this.slidingLightComplete.bind(this)}
-                value={this.state.dimValue}
-              />
+            <View style={{flex: 1, flexDirection: 'row'}}>
+              <CustomClickButton
+                iconName="thermometer-4"
+                buttonText={this.props.t('bedControl:heatOn')}
+                onPressButton={() => {this.heatControl(true)}}
+                iconColor='#FFFFFF'/>
+              <CustomClickButton
+                iconName="thermometer-empty"
+                buttonText={this.props.t('bedControl:heatOff')}
+                onPressButton={() => {this.heatControl(false)}}
+                iconColor='#000000'/>
             </View>
 
-            <View style={{flex: 0.5, flexDirection: 'column', justifyContent: 'center', width: '100%'}}>
+            <View style={{flex: 1, flexDirection: 'row'}}>
+              <CustomHoldButton
+                iconName="chevron-up"
+                buttonText={this.props.t('bedControl:headUp')}
+                onPressInButton={() => {this.bedControl('start', 'head', 'up')}}
+                onPressOutButton={() => {this.bedControl('stop', 'head', 'up')}}
+                iconColor='#FFFFFF'/>
+              <CustomHoldButton
+                iconName="chevron-up"
+                buttonText={this.props.t('bedControl:feetUp')}
+                onPressInButton={() => {this.bedControl('start', 'feet', 'up')}}
+                onPressOutButton={() => {this.bedControl('stop', 'feet', 'up')}}
+                iconColor='#FFFFFF'/>
+            </View>
+            <View style={{flex: 1, flexDirection: 'row'}}>
+              <CustomHoldButton
+                iconName="chevron-down"
+                buttonText={this.props.t('bedControl:headDown')}
+                onPressInButton={() => {this.bedControl('start', 'head', 'down')}}
+                onPressOutButton={() => {this.bedControl('stop', 'head', 'down')}}
+                iconColor='#FFFFFF'/>
+              <CustomHoldButton
+                iconName="chevron-down"
+                buttonText={this.props.t('bedControl:feetDown')}
+                onPressInButton={() => {this.bedControl('start', 'feet', 'down')}}
+                onPressOutButton={() => {this.bedControl('stop', 'feet', 'down')}}
+                iconColor='#FFFFFF'/>
+            </View>
+
+
+
+            {/* <View style={{flex: 0.5, flexDirection: 'column', justifyContent: 'center', width: '100%'}}>
               <Text style={{fontSize: 20, textAlign: 'center'}}>
                 {"Sengevinkel på hodet: " + String(this.state.bedAngleHeadValue)}</Text>
               <Slider
@@ -321,11 +271,11 @@ class BedControlPage extends Component<Props, State> {
                 onSlidingComplete={this.slidingBedAngleFeetComplete.bind(this)}
                 value={this.state.bedAngleFeetValue}
               />
-            </View>
+            </View> */}
 
             <View style={{flex: 1}}>
               <Button
-                style={this.state.alarmSet ? {flex: 1, backgroundColor: 'red', marginHorizontal: 8, width: '80%'} : {flex: 1, backgroundColor: 'blue', marginHorizontal: 8, width: '80%'}}
+                style={this.state.alarmSet ? {flex: 1, backgroundColor: 'skyblue', marginHorizontal: 8, width: '80%'} : {flex: 1, backgroundColor: 'skyblue', marginHorizontal: 8, width: '80%'}}
                 textStyle={{ fontSize: 18 }}
                 isDisabled={this.props.loading}
                 onPress={() => {
@@ -344,6 +294,39 @@ class BedControlPage extends Component<Props, State> {
                   style={[styles.icon, {color: 'white'}]}
                 />
                 {!this.state.alarmSet ? this.props.t('bedControl:setAlarm') : this.props.t('bedControl:disableAlarm') + "\n" + this.state.selectedHours + ":" + this.state.selectedMinutes}
+              </Button>
+            </View>
+
+            <View style={{flexDirection: 'row'}}>
+              <Button
+                style={{flex: 1, backgroundColor: 'skyblue', marginHorizontal: 3}}
+                textStyle={{ fontSize: 18 }}
+                isDisabled={this.props.loading}
+                onPress={() => {
+                  this.scemeControl("sleep");
+                }}
+              >
+                <Icon
+                  name="lightbulb-o"
+                  size={26}
+                  style={[styles.icon, { color: '#FFFFFF' }]}
+                />
+                {this.props.t('bedControl:sleep')}
+              </Button>
+              <Button
+                style={{flex: 1, backgroundColor: 'skyblue', marginHorizontal: 3}}
+                textStyle={{ fontSize: 18 }}
+                isDisabled={this.props.loading}
+                onPress={() => {
+                  this.scemeControl("wakethefuckup");
+                }}
+              >
+                <Icon
+                  name="lightbulb-o"
+                  size={26}
+                  style={[styles.icon, { color: '#000000' }]}
+                />
+                {this.props.t('bedControl:wakethefuckup')}
               </Button>
             </View>
 

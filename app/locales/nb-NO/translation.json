@@ -3,9 +3,17 @@
     "ettellerannet": "her kan man se hva som skjer",
     "lightOn": "Lys På",
     "lightOff": "Lys Av",
+    "ledOn": "Led På",
+    "ledOff": "Led Av",
     "heatOn": "Varmeteppe På",
     "heatOff": "Varmeteppe Av",
     "setAlarm": "Set alarm",
-    "disableAlarm": "Slå av alarm"
+    "disableAlarm": "Slå av alarm",
+    "wakethefuckup": "Wake the fuck up",
+    "sleep": "Sleep",
+    "headUp": "Rygg opp",
+    "headDown": "Rygg ned",
+    "feetUp": "Ben opp",
+    "feetDown": "Ben ned",
   }
 }
