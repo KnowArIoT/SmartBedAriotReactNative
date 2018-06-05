@@ -1,23 +1,29 @@
+# SmartBedAriotReactNative
+
+## Requirements:
+Install these first
+```
 brew install node
 brew install watchman
 npm install -g react-native-cli
+```
+## Setup
+- Open Xcode and select Xcode -> Preferences -> Locations
+- Set `default Command line tools` for å bygge
 
-Åpne xCode og velg Xcode -> Preferences -> Locations
-og set default Command line tools for å bygge
-
-For å kjøre prosjektet:
-IOS
-- npm install (i SmartBedAriotReactNative/) evt hvis du får feil her:
-- rm -rf node_modules/ && npm i && rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json && rm -rf $TMPDIR/react-* &&  rm -rf $TMPDIR/haste-map-react-native-packager-*
-- cd ios/ $$ pod install
-- react-native run-ios
+## To build and run the project:
+### iOS:
+- ```npm install``` (in `SmartBedAriotReactNative/` root) - Eventually, if you get errorts here, do follow the next steps:
+  - ```rm -rf node_modules/ && npm i && rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json && rm -rf $TMPDIR/react-* &&  rm -rf $TMPDIR/haste-map-react-native-packager-*```
+- ```cd ios/ $$ pod install```
+- ```react-native run-ios```
 
 
-ANDROID
-- react-native run-android
-- Dersom den sier no device found må man enten plugge i sitt eget android device eller starte en Android emulator fra android studio. Man kan kjøre "adb devices" for å se om man har noen tilgjengelige.
-- Dersom du får feil med build tools må du installere android studio >= 3.1
-- For å lage en release APK til android:
-1. cd android && ./gradlew assembleRelease
-2. react-native run-android --variant=release
-3. Filen legges i android/app/build/outputs/apk/app-release.apk
+### Android
+- ```react-native run-android```
+  - If you get `no device found` you need to connect your own Android devide into the computer or start an Android Simulator from Android Studio. You can run  ```adb devices``` to see if you have any devices available.
+  - If  you get errors with build tools, you need to install Android Studio >= 3.1
+- To build a release APK to Android:
+1. ```cd android && ./gradlew assembleRelease```
+2. ```react-native run-android --variant=release```
+3. The file is saved in `android/app/build/outputs/apk/app-release.apk`
