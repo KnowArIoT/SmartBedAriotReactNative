@@ -19,7 +19,7 @@ export const SmartBedUrler = {
   toggleHeatOff: `${baseUrl}/toggleHeatOff`,
   dimLight: `${baseUrl}/dimLight/`,
   getSensorData: `${baseUrl}/sensorData`,
-  setAlarm: `${baseUrl}/scene/wakeup`,
+  setAlarm: `${baseUrl}/setAlarm`,
   wakeup: `${baseUrl}/scene/wakeup`,
   sleep: `${baseUrl}/scene/sleep`,
   bedControl: `${baseUrl}/bed`,
