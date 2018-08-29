@@ -70,20 +70,17 @@ class BedControlPage extends Component<Props, State> {
     this.fetchData(on ? SmartBedUrler.toggleLedOn : SmartBedUrler.toggleLedOff);
   }
 
-  bedAngleHeadControl(value) {
-    this.fetchData(SmartBedUrler.setHeadAngle + String(value))
-  }
-
-  bedAngleFeetControl(value) {
-    this.fetchData(SmartBedUrler.setFeetAngle + String(value))
-  }
-
   heatControl(on) {
     this.fetchData(on ? SmartBedUrler.toggleHeatOn : SmartBedUrler.toggleHeatOff)
   }
 
   scemeControl(val) {
-    this.fetchData(val == "sleep" ? SmartBedUrler.sleep : SmartBedUrler.wakeup);
+    if (val == "sleep") {
+      this.fetchData('http://smartbeddypi.local:8080/scene/sleep');
+    }
+    else if (val == "wakethefuckup") {
+      this.fetchData('http://smartbeddypi.local:8080/scene/wakeup');
+    }
   }
 
   alarmControl() {
@@ -103,12 +100,9 @@ class BedControlPage extends Component<Props, State> {
       fetch(url)
         .then((response) => {
           if (response.ok) {
-            return response.json()
+            return response.json();
           }
           throw new Error('Uventet feil');
-        })
-        .then((responseJson) => {
-          console.log(responseJson);
         })
         .catch((error) => {
           console.log(error);
@@ -177,7 +171,7 @@ class BedControlPage extends Component<Props, State> {
         <LoadingView loading={this.props.loading}>
           <View style={styles.container}>
             <View style={{flex: 1}}>
-              <Text style={{marginTop: 35, fontSize: 18, fontWeight: 'bold'}}>Smart Bed</Text>
+              <Text style={{marginTop: 35, fontSize: 18, fontWeight: 'bold'}}>Zzzmartbed</Text>
             </View>
 
             <View style={{flex: 1, flexDirection: 'row'}}>
